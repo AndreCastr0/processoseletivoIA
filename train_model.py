@@ -17,7 +17,27 @@ def load_images():
 
     return (x_train, y_train), (x_test, y_test)
 
-def main():
 
+def build_model():
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Input(shape=(28, 28, 1)),
+
+        #primeira camada convolucional
+        tf.keras.layers.Conv2D(16, (3, 3), activation='relu'), #quantidade de filtros, tamanho do kernel, função de ativação (devolve os valores positivos obtidos)
+        tf.keras.layers.MaxPooling2D((2, 2)), #mantém somente valores importantes          
+        
+        #segunda camada convolucional
+        tf.keras.layers.Conv2D(32, (3, 3), activation='relu'),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        
+        tf.keras.layers.Flatten(), #transforma a matriz em um vetor
+        tf.keras.layers.Dense(64, activation='relu'), #camada totalmente conectada para combinar as características
+        tf.keras.layers.Dense(10, activation='softmax') #cada classe recebe um valor, onde o somatório das classe é 1. O maior valor representa o resultado
+
+])  
+
+
+def main():
+    
 if __name__ == "__main__":
     main()
