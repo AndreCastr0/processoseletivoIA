@@ -44,6 +44,20 @@ def build_model():
     return model
 
 def main():
+    (x_train, y_train), (x_test, y_test) = load_images()
+
+    model = build_model()
+
+    model.fit( #treinamento do modelo
+        x_train,
+        y_train,
+        epochs=3, #percorre o dataset 3 vezes
+        batch_size=128, #quantidade de amostras antes de atualizar os pesos
+        validation_split=0.1, #10% dos dados de treino para validação durante o treino
+        verbose=1
+    )
+
     
+
 if __name__ == "__main__":
     main()
