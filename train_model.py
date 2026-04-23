@@ -36,6 +36,12 @@ def build_model():
 
 ])  
 
+    model.compile(
+        optimizer="adam", #atualiza os pesos da rede
+        loss="sparse_categorical_crossentropy", #quantifica o erro do modelo
+        metrics=["accuracy"] #verifica a acuracia: proporção de corratas em relação ao total
+    )
+    return model
 
 def main():
     
