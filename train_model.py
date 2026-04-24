@@ -57,7 +57,12 @@ def main():
         verbose=1
     )
 
-    
+    loss, accuracy = model.evaluate(x_test, y_test, verbose=0) #avalia o modelo usando os dados de teste
+    print(f"Acurácia final no teste: {accuracy:.4f}")
+
+    model.save("model.h5")
+    print("Modelo salvo como model.h5")
+
 
 if __name__ == "__main__":
     main()
