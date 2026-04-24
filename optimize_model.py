@@ -12,8 +12,11 @@ def main():
 
     tflite_model = converter.convert()
 
-    
-    
+    with open("model.tflite", "wb") as f:
+        f.write(tflite_model)
+
+    print("Modelo otimizado salvo como model.tflite")
+   
 
 
 if __name__ == "__main__":
