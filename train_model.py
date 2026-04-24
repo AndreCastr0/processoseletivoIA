@@ -32,14 +32,14 @@ def build_model():
         
         tf.keras.layers.Flatten(), #transforma a matriz em um vetor
         tf.keras.layers.Dense(64, activation='relu'), #camada totalmente conectada para combinar as características
-        tf.keras.layers.Dense(10, activation='softmax') #cada classe recebe um valor, onde o somatório das classe é 1. O maior valor representa o resultado
+        tf.keras.layers.Dense(10, activation='softmax') #cada classe recebe um valor, onde o somatório das classes é 1. O maior valor representa o resultado
 
 ])  
 
     model.compile(
         optimizer="adam", #atualiza os pesos da rede
         loss="sparse_categorical_crossentropy", #quantifica o erro do modelo
-        metrics=["accuracy"] #verifica a acuracia: proporção de corratas em relação ao total
+        metrics=["accuracy"] #verifica a acuracia: proporção de corretas em relação ao total
     )
     return model
 
@@ -59,11 +59,10 @@ def main():
 
     loss, accuracy = model.evaluate(x_test, y_test, verbose=0) #avalia o modelo usando os dados de teste
     print(f"Acurácia final no teste: {accuracy:.4f}")
+    print(f"Loss final no teste: {loss:.4f}")
 
     model.save("model.h5")
     print("Modelo salvo como model.h5")
-
-    #comentario para ativar o workflow
 
 
 if __name__ == "__main__":
