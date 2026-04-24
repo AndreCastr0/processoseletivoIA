@@ -17,7 +17,7 @@ def main():
 
     print("Modelo otimizado salvo como model.tflite")
    
-
+     #comentario para ativar o workflow
 
 if __name__ == "__main__":
     main()

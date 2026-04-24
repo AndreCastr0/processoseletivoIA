@@ -63,6 +63,8 @@ def main():
     model.save("model.h5")
     print("Modelo salvo como model.h5")
 
+    #comentario para ativar o workflow
+
 
 if __name__ == "__main__":
     main()
