@@ -307,48 +307,111 @@ Preencha todas as seções de forma clara e objetiva.
 > 💡 Dica: não é necessário um relatório extenso.  
 > O mais importante é demonstrar **clareza nas decisões técnicas**.
 
+# 🧠 Classificação de Dígitos Manuscritos com CNN e Otimização para Edge AI PNAAT
 
+---
 
-**Exemplo:**
+## 👤 Identificação
 
-👤 Identificação: **Nome Completo:**
+**Nome Completo:** André Castro Saraiva Leite
 
+---
 
-### 1️⃣ Resumo da Arquitetura do Modelo
+## 1️⃣ Resumo da Arquitetura do Modelo
 
-Descreva, em palavras, a arquitetura da **CNN** implementada no arquivo
-`train_model.py`.
+O modelo implementado consiste em uma **Rede Neural Convolucional (CNN)** simples e eficiente, projetada especificamente para o problema de classificação de dígitos manuscritos do dataset MNIST.
 
+A arquitetura segue o seguinte fluxo:
 
+- **Entrada:** imagens 28x28 em escala de cinza, com adição de canal (28x28x1)
+- **Bloco Convolucional 1:**
+  - Conv2D com 16 filtros (3x3) e ativação ReLU
+  - MaxPooling2D (2x2)
+- **Bloco Convolucional 2:**
+  - Conv2D com 32 filtros (3x3) e ativação ReLU
+  - MaxPooling2D (2x2)
+- **Camadas finais:**
+  - Flatten (transformação para vetor)
+  - Dense com 64 neurônios (ReLU)
+  - Dense com 10 neurônios (Softmax)
 
-### 2️⃣ Bibliotecas Utilizadas
+### 🎯 Justificativa da Arquitetura
 
-Liste as principais bibliotecas utilizadas no projeto, preferencialmente
-com suas versões.
+A arquitetura foi projetada com foco em simplicidade, eficiência computacional, boa capacidade de generalização e compatibilidade com ambientes de execução limitados, como aplicações de Edge AI.
 
+Foram utilizadas apenas duas camadas convolucionais, o que é suficiente para o problema MNIST, evitando aumento desnecessário de complexidade, tempo de treinamento e custo computacional.
 
+---
 
-### 3️⃣ Técnica de Otimização do Modelo
+## 2️⃣ Bibliotecas Utilizadas
 
-Explique qual técnica foi utilizada para otimizar o modelo no arquivo
-`optimize_model.py`.
+Principais bibliotecas utilizadas no projeto:
 
+- **TensorFlow / Keras:** utilizada para construção, treinamento, salvamento e conversão do modelo.
+- **Python 3.11:** linguagem utilizada no desenvolvimento do projeto.
 
+---
 
-### 4️⃣ Resultados Obtidos
+## 3️⃣ Técnica de Otimização do Modelo
 
-Informe o principal resultado obtido após o treinamento do modelo.
+A técnica utilizada foi a **Dynamic Range Quantization**, ou **Quantização de Faixa Dinâmica**.
 
+Ela foi implementada por meio da seguinte configuração no conversor TensorFlow Lite:
 
+    converter.optimizations = [tf.lite.Optimize.DEFAULT]
 
-### 5️⃣ Comentários Adicionais (Opcional)
+### 🔍 O que essa técnica faz
 
-Utilize este espaço para comentar:
-- Dificuldades encontradas  
-- Decisões técnicas importantes  
-- Limitações do modelo  
-- Aprendizados durante o desafio
+A quantização de faixa dinâmica reduz a precisão dos pesos do modelo, convertendo representações em `float32` para formatos mais leves. Com isso, o tamanho final do arquivo `.tflite` é reduzido, mantendo uma boa precisão para o problema tratado.
 
+### 🎯 Por que essa escolha
+
+Essa técnica foi escolhida porque é compatível com aplicações de Edge AI, reduz o uso de memória e armazenamento, não exige dados adicionais para calibração e mantém o pipeline de otimização simples.
+
+---
+
+## 4️⃣ Resultados Obtidos
+
+Após o treinamento, o modelo apresentou aproximadamente:
+
+- **Acurácia no teste:** ~98.4%
+- **Loss no teste:** valor baixo, indicando bom ajuste do modelo.
+
+### 📊 Interpretação
+
+A acurácia obtida demonstra que o modelo aprendeu corretamente os padrões dos dígitos manuscritos presentes no dataset MNIST. Além disso, o baixo valor de loss indica que o modelo não apenas acerta boa parte das previsões, mas também apresenta boa confiança em suas classificações.
+
+### ⚖️ Trade-off 
+
+Neste projeto, foi priorizada a eficiência, a rapidez de treinamento e o baixo custo computacional em vez da busca pela maior acurácia possível. Essa decisão está alinhada com os objetivos de Edge AI e com a necessidade de execução em ambientes automatizados de Integração Contínua (CI).
+
+---
+
+## 5️⃣ Comentários Adicionais
+
+### 🧩 Dificuldades Encontradas
+
+Durante o desenvolvimento, uma das principais dificuldades foi compreender o fluxo completo do projeto, envolvendo as etapas de treinamento, salvamento, conversão e otimização do modelo.
+
+Também foi necessário organizar corretamente a separação entre os arquivos `train_model.py`, responsável pelo treinamento e salvamento do modelo, e `optimize_model.py`, responsável pela conversão e otimização para TensorFlow Lite.
+
+### ⚙️ Decisões Técnicas Importantes
+
+Foi utilizada uma CNN simples com duas camadas convolucionais, pois essa estrutura já é suficiente para atingir bom desempenho no MNIST, além de reduzir o risco de overfitting e diminuir o tempo de execução.
+
+O treinamento foi limitado a 3 épocas, pois essa quantidade foi suficiente para obter boa convergência no problema, além de reduzir o risco de falhas em ambientes automatizados de CI.
+
+Também foi utilizado `batch_size = 128`, buscando um equilíbrio entre desempenho de treinamento e uso de memória.
+
+### ⚠️ Limitações do Modelo
+
+O modelo desenvolvido é simples e não foi projetado para alcançar a máxima acurácia possível. Não foram utilizadas técnicas mais avançadas.
+
+Além disso, a avaliação foi focada principalmente nas métricas básicas de `accuracy` e `loss`.
+
+### 📚 Aprendizados Durante o Desafio
+
+Durante o desafio, foram consolidados aprendizados importantes sobre a separação entre as etapas de treinamento e otimização de modelos, o uso prático do TensorFlow Lite,conceitos de Edge AI,versionamento de código, integração com GitHub Actions e organização de projetos para execução automática.
 
 ## 🆘 Suporte
 
