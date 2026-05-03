@@ -2,16 +2,19 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 
-
+    #
 def load_images():
-    #Carregar dataset MNIST (divisão de treino e validação pré definida)
+
+    #Carregar dataset MNIST
     (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
 
-    #Normalizando os pixels da imagem para intervalo 0-1
+    #Normalizando os pixels das imagens para intervalo 0-1
+    
     x_train = x_train.astype("float32") / 255
     x_test = x_test.astype("float32") / 255
 
-    # Adiciona dimensão do canal: (28, 28) para (28, 28, 1)
+    # Adiciona dimensão que indica a quantidade de canais de cor, tornando: (28, 28, 1)
+    
     x_train = x_train[..., tf.newaxis]
     x_test = x_test[..., tf.newaxis]
 
@@ -23,10 +26,12 @@ def build_model():
         tf.keras.layers.Input(shape=(28, 28, 1)),
 
         #primeira camada convolucional
-        tf.keras.layers.Conv2D(16, (3, 3), activation='relu'), #quantidade de filtros, tamanho do kernel, função de ativação (devolve os valores positivos obtidos)
-        tf.keras.layers.MaxPooling2D((2, 2)), #mantém somente valores importantes          
+
+        tf.keras.layers.Conv2D(16, (3, 3), activation='relu'), #quantidade de filtros, tamanho dos kernels, função de ativação (devolve os valores positivos obtidos)
+        tf.keras.layers.MaxPooling2D((2, 2)), #verifica cada região 2x2 e mantém apenas o maior valor        
         
         #segunda camada convolucional
+        
         tf.keras.layers.Conv2D(32, (3, 3), activation='relu'),
         tf.keras.layers.MaxPooling2D((2, 2)),
         
@@ -35,7 +40,7 @@ def build_model():
         tf.keras.layers.Dense(10, activation='softmax') #cada classe recebe um valor, onde o somatório das classes é 1. O maior valor representa o resultado
 
 ])  
-
+    #Compilação do modelo
     model.compile(
         optimizer="adam", #atualiza os pesos da rede
         loss="sparse_categorical_crossentropy", #quantifica o erro do modelo
