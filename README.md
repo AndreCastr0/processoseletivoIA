@@ -323,17 +323,19 @@ O modelo implementado consiste em uma **Rede Neural Convolucional (CNN)** simple
 
 A arquitetura segue o seguinte fluxo:
 
-- **Entrada:** imagens 28x28 em escala de cinza, com adição de canal (28x28x1)
+- **Entrada:** imagens 28x28 em escala de cinza, com adição de canal (28x28x1), que representa a quantidade de cores.
 - **Bloco Convolucional 1:**
-  - Conv2D com 16 filtros (3x3) e ativação ReLU
-  - MaxPooling2D (2x2)
+  - Conv2D com 16 filtros (3x3): Analiza características como bordas, curvas, dentre outras.
+  - Ativação ReLU: Reduz problemas com gradiente.
+  - MaxPooling2D (2x2): Considera apenas os valores mais importantes dentro de cada área 2x2.
 - **Bloco Convolucional 2:**
-  - Conv2D com 32 filtros (3x3) e ativação ReLU
+  - Conv2D com 32 filtros (3x3): Capturar padrões mais complexos.
+  - Ativação ReLU 
   - MaxPooling2D (2x2)
 - **Camadas finais:**
-  - Flatten (transformação para vetor)
-  - Dense com 64 neurônios (ReLU)
-  - Dense com 10 neurônios (Softmax)
+  - Flatten (transformação para vetor): Converte uma matriz em uma estrutura de um vetor.
+  - Dense com 64 neurônios (ReLU): Combina e interpreta características extraídas pelas camadas convolucionais.
+  - Dense com 10 neurônios (Softmax): Retorna um vetor de probabilidades para cada classe, cujo somatório é 1. A classe final é obtida selecionando a maior probabilidade.
 
 ### 🎯 Justificativa da Arquitetura
 
@@ -374,8 +376,9 @@ Essa técnica foi escolhida porque é compatível com aplicações de Edge AI, r
 
 Após o treinamento, o modelo apresentou aproximadamente:
 
-- **Acurácia no teste:** ~98.4%
-- **Loss no teste:** valor baixo, indicando bom ajuste do modelo.
+- **Acurácia no teste:** ~98.3%, portanto, dentre às 10.000 imagens de teste, o modelo decidiu a classe corramente de aproximadamente 9.830 imagens. 
+- **Loss no teste para sparse_categorical_crossentropy:** ~0.0519, indicando a itensidade do erro, calculado a partir da probabilidade atribuída à classe correta em cada previsão — quanto mais próximas de 1 essas probabilidades, menor o loss médio e melhor o desempenho do modelo.
+- **Tamanho dos arquivos:** Modelo(h5): 703.94KB e Modelo(tflite): 63.54KB 
 
 ### 📊 Interpretação
 
@@ -383,7 +386,7 @@ A acurácia obtida demonstra que o modelo aprendeu corretamente os padrões dos 
 
 ### ⚖️ Trade-off 
 
-Neste projeto, foi priorizada a eficiência, a rapidez de treinamento e o baixo custo computacional em vez da busca pela maior acurácia possível. Essa decisão está alinhada com os objetivos de Edge AI e com a necessidade de execução em ambientes automatizados de Integração Contínua (CI).
+Neste projeto, foi priorizada o menor tempo de treinamento, e menor custo computacional de memória, em vez da busca pela maior acurácia possível. Essa decisão está alinhada com os objetivos de Edge AI e com a necessidade de execução em ambientes automatizados de Integração Contínua (CI).
 
 ---
 
