@@ -15,7 +15,16 @@ def main():
     with open("model.tflite", "wb") as f:
         f.write(tflite_model)
 
-    print("Modelo otimizado salvo como model.tflite")
+    print("Modelo otimizado salvo como model.tflite \n")
+
+
+    size_h5 = os.path.getsize("model.h5") / 1024
+    size_tflite = os.path.getsize("model.tflite") / 1024
+
+    print("\n")
+
+    print(f"Tamanho original do modelo(h5): {size_h5:.2f} KB \n")
+    print(f"Tamanho otimizado do modelo (tflite): {size_tflite:.2f} KB \n")
 
 if __name__ == "__main__":
     main()

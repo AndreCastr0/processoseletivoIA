@@ -42,8 +42,8 @@ def build_model():
 ])  
     #Compilação do modelo
     model.compile(
-        optimizer="adam", #atualiza os pesos da rede
-        loss="sparse_categorical_crossentropy", #quantifica o erro do modelo
+        optimizer="adam", #ajusta os pesos da rede de forma eficiente a fim de minimizar o erro
+        loss="sparse_categorical_crossentropy", #quantifica o erro do modelo 
         metrics=["accuracy"] #verifica a acuracia: proporção de corretas em relação ao total
     )
     return model
@@ -63,11 +63,14 @@ def main():
     )
 
     loss, accuracy = model.evaluate(x_test, y_test, verbose=0) #avalia o modelo usando os dados de teste
-    print(f"Acurácia final no teste: {accuracy:.4f}")
-    print(f"Loss final no teste: {loss:.4f}")
+    
+    print("\n")
+
+    print(f"Acurácia final do subconjunto de teste: {accuracy:.4f} \n")
+    print(f"Perda (Loss) final no subconjunto de teste: {loss:.4f} \n")
 
     model.save("model.h5")
-    print("Modelo salvo como model.h5")
+    print("Modelo salvo como model.h5 \n")
 
 
 if __name__ == "__main__":
