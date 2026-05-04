@@ -378,7 +378,7 @@ Após o treinamento, o modelo apresentou aproximadamente:
 
 - **Acurácia no teste:** ~98.3%, portanto, dentre às 10.000 imagens de teste, o modelo decidiu a classe corramente de aproximadamente 9.830 imagens. 
 - **Loss no teste para sparse_categorical_crossentropy:** ~0.0519, indicando a itensidade do erro, calculado a partir da probabilidade atribuída à classe correta em cada previsão — quanto mais próximas de 1 essas probabilidades, menor o loss médio e melhor o desempenho do modelo.
-- **Tamanho dos arquivos:** Modelo(h5): 703.94KB e Modelo(tflite): 63.54KB 
+- **Tamanho dos arquivos:** Modelo(h5): 703.94KB e Modelo(tflite): 63.54KB, portanto, uma redução significativa de ~90.97% de espaço ocupado pelo modelo.
 
 ### 📊 Interpretação
 
@@ -386,7 +386,7 @@ A acurácia obtida demonstra que o modelo aprendeu corretamente os padrões dos 
 
 ### ⚖️ Trade-off 
 
-Neste projeto, foi priorizada o menor tempo de treinamento, e menor custo computacional de memória, em vez da busca pela maior acurácia possível. Essa decisão está alinhada com os objetivos de Edge AI e com a necessidade de execução em ambientes automatizados de Integração Contínua (CI).
+Neste projeto, foi priorizada o menor tempo de treinamento, e menor custo computacional e memória, em vez da busca pela maior acurácia possível. Essa decisão está alinhada com os objetivos de Edge AI e com a necessidade de execução em ambientes automatizados de Integração Contínua (CI).
 
 ---
 
